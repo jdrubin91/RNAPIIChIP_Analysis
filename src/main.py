@@ -1,6 +1,11 @@
 __author__ = 'Jonathan Rubin'
 
 
+#REQUIREMENTS:
+#FSTITCH(https://github.com/azofeifa/FStitch): change Fstitch directory below
+#Training file: Create from FStitch readme, change directory below
+
+
 # This Python Repository takes as input RNAPII ChIP-Seq data (with input controls) and does the following:
 
 # 1. Run FSTITCH (https://github.com/azofeifa/FStitch) to determine ON/OFF regions of the genome.
@@ -24,10 +29,30 @@ def parent_dir(directory):
 #Src directory
 srcdir = os.path.dirname(os.path.realpath(__file__))
 
+#Fstitch bed file directory
+fstitchbed = parent_dir(srcdir) + '/fstitch_bed/'
+
+
+#User-defined Input:
+#=========================================================================================================
 #Training file directory
-trainingfile = parent_dir(srcdir) + '/training_files/training_set_fixed.txt'
+trainingdir = parent_dir(srcdir) + '/training_files/'
+
+#Fstitch directory
+fstitchdir = parent_dir(srcdir) + '/FStitch/src/FStitch'
+
+#BedGraph files
+bedgraphs = ['/scratch/Shares/dowell/Pelish_RNAPII/bowtie/sortedbam/genomecoveragebed/fortdf/SRR1768126.fastq.bowtie2.sorted.BedGraph.reflected.sorted.BedGraph.mp.BedGraph', \
+            '/scratch/Shares/dowell/Pelish_RNAPII/bowtie/sortedbam/genomecoveragebed/fortdf/SRR1768127.fastq.bowtie2.sorted.BedGraph.reflected.sorted.BedGraph.mp.BedGraph', \
+            '/scratch/Shares/dowell/Pelish_RNAPII/bowtie/sortedbam/genomecoveragebed/fortdf/SRR1768128.fastq.bowtie2.sorted.BedGraph.reflected.sorted.BedGraph.mp.BedGraph', \
+            '/scratch/Shares/dowell/Pelish_RNAPII/bowtie/sortedbam/genomecoveragebed/fortdf/SRR1768129.fastq.bowtie2.sorted.BedGraph.reflected.sorted.BedGraph.mp.BedGraph', \
+            '/scratch/Shares/dowell/Pelish_RNAPII/bowtie/sortedbam/genomecoveragebed/fortdf/SRR1768130.fastq.bowtie2.sorted.BedGraph.reflected.sorted.BedGraph.mp.BedGraph', \
+            '/scratch/Shares/dowell/Pelish_RNAPII/bowtie/sortedbam/genomecoveragebed/fortdf/SRR1768131.fastq.bowtie2.sorted.BedGraph.reflected.sorted.BedGraph.mp.BedGraph', \
+            '/scratch/Shares/dowell/Pelish_RNAPII/bowtie/sortedbam/genomecoveragebed/fortdf/SRR1768132.fastq.bowtie2.sorted.BedGraph.reflected.sorted.BedGraph.mp.BedGraph', \
+            '/scratch/Shares/dowell/Pelish_RNAPII/bowtie/sortedbam/genomecoveragebed/fortdf/SRR1768133.fastq.bowtie2.sorted.BedGraph.reflected.sorted.BedGraph.mp.BedGraph']
+#=========================================================================================================
 
 def run():
-    fstitch(trainingfile)
+    fstitch(fstitchdir,trainingdir,bedgraphs,fstitchbed)
 
 
