@@ -54,6 +54,6 @@ bedgraphs = ['/scratch/Shares/dowell/Pelish_RNAPII/bowtie/sortedbam/genomecovera
 #=========================================================================================================
 
 def run():
-    fstitch(fstitchdir,trainingdir,bedgraphs,fstitchbed)
+    fstitch.run(fstitchdir,trainingdir,bedgraphs,fstitchbed)
 
 
