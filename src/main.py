@@ -2,6 +2,7 @@ __author__ = 'Jonathan Rubin'
 
 
 #REQUIREMENTS:
+#module load bedtools2_2.22.0
 #FSTITCH(https://github.com/azofeifa/FStitch): change Fstitch directory below
 #Training file: Create from FStitch readme, change directory below
 
@@ -19,6 +20,7 @@ __author__ = 'Jonathan Rubin'
 
 import os
 import fstitch
+import input_normalization
 
 #Return parent directory
 def parent_dir(directory):
@@ -42,18 +44,28 @@ trainingdir = parent_dir(srcdir) + '/training_files/'
 #Fstitch directory
 fstitchdir = parent_dir(srcdir) + '/FStitch/src/FStitch'
 
-#BedGraph files
-bedgraphs = ['/scratch/Shares/dowell/Pelish_RNAPII/bowtie/sortedbam/genomecoveragebed/fortdf/SRR1768126.fastq.bowtie2.sorted.BedGraph.reflected.sorted.BedGraph.mp.BedGraph', \
+#BedGraph files (if not using normalization module)
+bedgraphs = []
+
+#Normalize to control?
+normalize = True
+
+#Control BedGraph files
+contbeds = ['/scratch/Shares/dowell/Pelish_RNAPII/bowtie/sortedbam/genomecoveragebed/fortdf/SRR1768126.fastq.bowtie2.sorted.BedGraph.reflected.sorted.BedGraph.mp.BedGraph', \
             '/scratch/Shares/dowell/Pelish_RNAPII/bowtie/sortedbam/genomecoveragebed/fortdf/SRR1768127.fastq.bowtie2.sorted.BedGraph.reflected.sorted.BedGraph.mp.BedGraph', \
-            '/scratch/Shares/dowell/Pelish_RNAPII/bowtie/sortedbam/genomecoveragebed/fortdf/SRR1768128.fastq.bowtie2.sorted.BedGraph.reflected.sorted.BedGraph.mp.BedGraph', \
-            '/scratch/Shares/dowell/Pelish_RNAPII/bowtie/sortedbam/genomecoveragebed/fortdf/SRR1768129.fastq.bowtie2.sorted.BedGraph.reflected.sorted.BedGraph.mp.BedGraph', \
             '/scratch/Shares/dowell/Pelish_RNAPII/bowtie/sortedbam/genomecoveragebed/fortdf/SRR1768130.fastq.bowtie2.sorted.BedGraph.reflected.sorted.BedGraph.mp.BedGraph', \
-            '/scratch/Shares/dowell/Pelish_RNAPII/bowtie/sortedbam/genomecoveragebed/fortdf/SRR1768131.fastq.bowtie2.sorted.BedGraph.reflected.sorted.BedGraph.mp.BedGraph', \
+            '/scratch/Shares/dowell/Pelish_RNAPII/bowtie/sortedbam/genomecoveragebed/fortdf/SRR1768131.fastq.bowtie2.sorted.BedGraph.reflected.sorted.BedGraph.mp.BedGraph']
+
+#Experimental BedGraph files
+expbeds = ['/scratch/Shares/dowell/Pelish_RNAPII/bowtie/sortedbam/genomecoveragebed/fortdf/SRR1768128.fastq.bowtie2.sorted.BedGraph.reflected.sorted.BedGraph.mp.BedGraph', \
+            '/scratch/Shares/dowell/Pelish_RNAPII/bowtie/sortedbam/genomecoveragebed/fortdf/SRR1768129.fastq.bowtie2.sorted.BedGraph.reflected.sorted.BedGraph.mp.BedGraph', \
             '/scratch/Shares/dowell/Pelish_RNAPII/bowtie/sortedbam/genomecoveragebed/fortdf/SRR1768132.fastq.bowtie2.sorted.BedGraph.reflected.sorted.BedGraph.mp.BedGraph', \
             '/scratch/Shares/dowell/Pelish_RNAPII/bowtie/sortedbam/genomecoveragebed/fortdf/SRR1768133.fastq.bowtie2.sorted.BedGraph.reflected.sorted.BedGraph.mp.BedGraph']
 #=========================================================================================================
 
 def run():
+    if normalize:
+        bedgraphs = input_normalization.run(contbeds,expbeds)
     fstitch.run(fstitchdir,trainingdir,bedgraphs,fstitchbed)
 
 
