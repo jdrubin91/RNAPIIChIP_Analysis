@@ -65,7 +65,11 @@ expbeds = ['/scratch/Shares/dowell/Pelish_RNAPII/bowtie/sortedbam/genomecoverage
 
 def run():
     if normalize:
+        "Normalizing BedGraphs..."
         bedgraphs = input_normalization.run(contbeds,expbeds)
+        "done"
+    "Running FStitch..."
     fstitch.run(fstitchdir,trainingdir,bedgraphs,fstitchbed)
+    "done"
 
 
