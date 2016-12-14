@@ -17,6 +17,7 @@ __author__ = 'Jonathan Rubin'
 # 7. Run MEME to get motifs
 # 8. Run Tomtom to get TFs
 
+import os
 import fstitch
 
 #Return parent directory
