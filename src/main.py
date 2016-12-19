@@ -72,8 +72,10 @@ def run():
         "Normalizing BedGraphs..."
         bedgraphs = input_normalization.run(contbeds,expbeds)
         "done"
+    else:
+        bedgraphs = expbeds
     "Running FStitch..."
-    # onregions = fstitch.run(fstitchdir,trainingdir,expbeds,fstitchbed)
+    # onregions = fstitch.run(fstitchdir,trainingdir,bedgraphs,fstitchbed)
     onregions = '/scratch/Users/joru1876/RNAPIIChIP_Analysis/training_files/training_set_fixed.txt'
     "done\nGetting Interval File..."
     get_intervals.run(onregions,bedgraphs,deseqdir)
