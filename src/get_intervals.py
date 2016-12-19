@@ -37,9 +37,7 @@ def subtract_files(file1,file2,outfilename,absolute=True):
                 line = line.strip().split()
                 linelist.append('\t'.join(line[:3]) + '\t')
                 line2 = line2.strip().split()
-                print line
-                print line[3:]
-                for i in range(3,len(line[3:])):
+                for i in range(3,len(line)):
                     print i
                     val1 = int(line[i])
                     val2 = int(line2[i])
