@@ -53,11 +53,9 @@ def subtract_files(file1,file2,outfilename):
 
 def run(onregions,expbeds,contbeds,deseqdir,names,norm):
     header = 'chr\tstart\tstop\t' + '\t'.join(names)
-    print header
     os.system("cat " + ' '.join(onregions) + " > " + deseqdir + "fstitch_allON_regions.bed")
     a = pybt.BedTool(deseqdir + "fstitch_allON_regions.bed").cut([0,1,2]).sort().merge()
     a.saveas(deseqdir + "expcounts.bed")
-    header = list()
     for file1 in expbeds:
         b = a.map(b=file1,c=4,o="sum")
         b.saveas(deseqdir + "temp.bed")
