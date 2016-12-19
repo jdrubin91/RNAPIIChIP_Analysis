@@ -38,7 +38,6 @@ def subtract_files(file1,file2,outfilename,absolute=True):
                 linelist.append('\t'.join(line[:3]) + '\t')
                 line2 = line2.strip().split()
                 for i in range(3,len(line)):
-                    print i
                     val1 = int(line[i])
                     val2 = int(line2[i])
                     if absolute:
@@ -62,13 +61,14 @@ def run(onregions,expbeds,contbeds,deseqdir,names):
         b = a.map(b=file1,c=4,o="sum")
         b.saveas(deseqdir + "temp.bed")
         append(deseqdir+"expcounts.bed",deseqdir+"temp.bed")
-    add_header(deseqdir+"expcounts.bed",'\t'.join(names))
+    # add_header(deseqdir+"expcounts.bed",'\t'.join(names))
     for file2 in contbeds:
         b = a.map(b=file2,c=4,o="sum")
         b.saveas(deseqdir + "temp.bed")
         append(deseqdir+"contcounts.bed",deseqdir+"temp.bed")
-    add_header(deseqdir+"contcounts.bed",'\t'.join(names))
+    # add_header(deseqdir+"contcounts.bed",'\t'.join(names))
     subtract_files(deseqdir + "expcounts.bed",deseqdir + "contcounts.bed",deseqdir+"normcounts.bed")
+    add_header(deseqdir+"normcounts.bed",'\t'.join(names))
 
 
 
