@@ -16,16 +16,29 @@ def append(file1,file2):
     for line in linelist:
         outfile.write(line)
 
+def add_header(file1,header):
+    linelist = list()
+    with open(file1) as F:
+        for line in F:
+            linelist.append(line)
+            
+    outfile = open(file1,'w')
+    outfile.write(header)
+    for line in linelist:
+        outfile.write(line)
+
 def run(onregions,bedgraphs,deseqdir):
     os.system("cat " + ' '.join(onregions) + " > " + deseqdir + "fstitch_allON_regions.bed")
     print "cat " + ' '.join(onregions) + " > " + deseqdir + "fstitch_allON_regions.bed"
     a = pybt.BedTool(deseqdir + "fstitch_allON_regions.bed").cut([0,1,2]).sort().merge()
     a.saveas(deseqdir + "counts.bed")
+    header = list()
     for file1 in bedgraphs:
+        header.append(file1.split('/')[-1])
         b = a.map(b=file1,c=4,o="sum")
         b.saveas(deseqdir + "temp.bed")
         append(deseqdir+"counts.bed",deseqdir+"temp.bed")
 
-    # os.system("bedtools merge -i " + deseqdir + "fstitch_allON_regions.sorted.bed > " + deseqdir + "fstitch_allON_regions.sorted.merged.bed")
+    add_header(deseqdir+"counts.bed",header)
 
 
