@@ -38,6 +38,7 @@ def subtract_files(file1,file2,outfilename,absolute=True):
                 linelist.append('\t'.join(line[:3]) + '\t')
                 line2 = line2.strip().split()
                 for i in range(3,len(line[3:])):
+                    print i
                     val1 = int(line[i])
                     val2 = int(line2[i])
                     if absolute:
@@ -53,7 +54,6 @@ def subtract_files(file1,file2,outfilename,absolute=True):
 
 def run(onregions,expbeds,contbeds,deseqdir,names):
     os.system("cat " + ' '.join(onregions) + " > " + deseqdir + "fstitch_allON_regions.bed")
-    print "cat " + ' '.join(onregions) + " > " + deseqdir + "fstitch_allON_regions.bed"
     a = pybt.BedTool(deseqdir + "fstitch_allON_regions.bed").cut([0,1,2]).sort().merge()
     a.saveas(deseqdir + "expcounts.bed")
     a.saveas(deseqdir + "contcounts.bed")
