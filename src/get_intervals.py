@@ -20,6 +20,7 @@ def run(onregions,bedgraphs,deseqdir):
     for file1 in bedgraphs:
         print file1
         b = a.map(b=file1,c=4,o="sum")
+        print b
         b.saveas(deseqdir + "temp.bed")
         append(deseqdir+"counts.bed",deseqdir+"temp.bed")
 
