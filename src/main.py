@@ -54,17 +54,20 @@ bedgraphs = []
 #after Fstitch (All FStitch regions get subtracted from input when counting reads over regions before DE-Seq)
 normalize = False
 
-#Control BedGraph files
+#Control BedGraph files (order corresponds to expbeds)
 contbeds = ['/scratch/Shares/dowell/Pelish_RNAPII/bowtie/sortedbam/genomecoveragebed/fortdf/SRR1768126.fastq.bowtie2.sorted.BedGraph.reflected.sorted.BedGraph', \
             '/scratch/Shares/dowell/Pelish_RNAPII/bowtie/sortedbam/genomecoveragebed/fortdf/SRR1768127.fastq.bowtie2.sorted.BedGraph.reflected.sorted.BedGraph', \
             '/scratch/Shares/dowell/Pelish_RNAPII/bowtie/sortedbam/genomecoveragebed/fortdf/SRR1768130.fastq.bowtie2.sorted.BedGraph.reflected.sorted.BedGraph', \
             '/scratch/Shares/dowell/Pelish_RNAPII/bowtie/sortedbam/genomecoveragebed/fortdf/SRR1768131.fastq.bowtie2.sorted.BedGraph.reflected.sorted.BedGraph']
 
-#Experimental BedGraph files
+#Experimental BedGraph files (order corresponds to contbeds)
 expbeds = ['/scratch/Shares/dowell/Pelish_RNAPII/bowtie/sortedbam/genomecoveragebed/fortdf/SRR1768128.fastq.bowtie2.sorted.BedGraph.reflected.sorted.BedGraph', \
             '/scratch/Shares/dowell/Pelish_RNAPII/bowtie/sortedbam/genomecoveragebed/fortdf/SRR1768129.fastq.bowtie2.sorted.BedGraph.reflected.sorted.BedGraph', \
             '/scratch/Shares/dowell/Pelish_RNAPII/bowtie/sortedbam/genomecoveragebed/fortdf/SRR1768132.fastq.bowtie2.sorted.BedGraph.reflected.sorted.BedGraph', \
             '/scratch/Shares/dowell/Pelish_RNAPII/bowtie/sortedbam/genomecoveragebed/fortdf/SRR1768133.fastq.bowtie2.sorted.BedGraph.reflected.sorted.BedGraph']
+
+#Condition names: Name your bedgraph files in the order that they appear in expbeds
+names = ['DMSO1','DMSO2','CA1','CA2']
 #=========================================================================================================
 
 def run():
@@ -75,10 +78,10 @@ def run():
     else:
         bedgraphs = expbeds
     "Running FStitch..."
-    # onregions = fstitch.run(fstitchdir,trainingdir,bedgraphs,fstitchbed)
+    # onregions = fstitch.run(fstitchdir,trainingdir,expbeds,fstitchbed)
     onregions = ['/scratch/Users/joru1876/RNAPIIChIP_Analysis/training_files/training_set_fixed.txt']
     "done\nGetting Interval File..."
-    get_intervals.run(onregions,bedgraphs,deseqdir)
+    get_intervals.run(onregions,expbeds,contbeds,deseqdir,names)
 
 
 
