@@ -1,0 +1,10 @@
+#####################################################
+#                  Fast Read Stitcher
+#Parameter Estimation Output
+#Date/Time                       :2016-12-19 11:46:31 
+#Learning Rate                   :0.400000
+#Max Iterations                  :100.000000
+#Convergence Threshold           :0.100000
+#####################################################
+Logistic Regression Coefficients :-0.847064,0.038610,-0.053095,52.678901,0.250948,0.001820
+HMM Transition Parameter         :0.990000,0.010000,0.010000,0.990000

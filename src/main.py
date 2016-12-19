@@ -51,7 +51,7 @@ fstitchdir = parent_dir(srcdir) + '/FStitch/src/FStitch'
 bedgraphs = []
 
 #Normalize to control? - This module was under construction but is no longer functional. Normalization now happens
-#after Fstitch (All FStitch regions are get subtracted from input before DE-Seq)
+#after Fstitch (All FStitch regions get subtracted from input when counting reads over regions before DE-Seq)
 normalize = False
 
 #Control BedGraph files
@@ -73,9 +73,10 @@ def run():
         bedgraphs = input_normalization.run(contbeds,expbeds)
         "done"
     "Running FStitch..."
-    bedgraphs = fstitch.run(fstitchdir,trainingdir,expbeds,fstitchbed)
+    # onregions = fstitch.run(fstitchdir,trainingdir,expbeds,fstitchbed)
+    onregions = '/scratch/Users/joru1876/RNAPIIChIP_Analysis/training_files/training_set_fixed.txt'
     "done\nGetting Interval File..."
-    get_intervals.run(bedgraphs,deseqdir)
+    get_intervals.run(onregions,bedgraphs,deseqdir)
 
 
 
