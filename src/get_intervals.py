@@ -35,11 +35,11 @@ def subtract_files(file1,file2,outfilename,absolute=True):
             for line in F1:
                 line2 = F2.readline()
                 line = line.strip().split()
-                linelist.append('\t'.join(line[:3]))
+                linelist.append('\t'.join(line[:3]) + '\t')
                 line2 = line2.strip().split()
                 for i in range(3,len(line[3:])):
-                    val1 = float(line[i])
-                    val2 = float(line2[i])
+                    val1 = int(line[i])
+                    val2 = int(line2[i])
                     if absolute:
                         linelist.append(str(abs(val1-val2))+'\t')
                     else:
