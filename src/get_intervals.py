@@ -20,7 +20,7 @@ def add_header(file1,header):
     linelist = list()
     with open(file1) as F:
         for line in F:
-            linelist.append(line)
+            linelist.append(line + '\n')
             
     outfile = open(file1,'w')
     outfile.write(header)
@@ -39,6 +39,6 @@ def run(onregions,bedgraphs,deseqdir):
         b.saveas(deseqdir + "temp.bed")
         append(deseqdir+"counts.bed",deseqdir+"temp.bed")
 
-    add_header(deseqdir+"counts.bed",'\t'.join(header)+'\n')
+    add_header(deseqdir+"counts.bed",'\t'.join(header))
 
 
