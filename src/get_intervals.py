@@ -40,6 +40,7 @@ def subtract_files(file1,file2,outfilename):
                 for i in range(3,len(line)):
                     val1 = int(line[i])
                     val2 = int(line2[i])
+                    print val1-val2
                     if val1-val2 > 0:
                         linelist.append(str(val1-val2)+'\t')
                     else:
