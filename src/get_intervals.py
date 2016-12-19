@@ -14,6 +14,7 @@ def append(file1,file2):
 
 def run(onregions,bedgraphs,deseqdir):
     os.system("cat " + ' '.join(onregions) + " > " + deseqdir + "fstitch_allON_regions.bed")
+    print "cat " + ' '.join(onregions) + " > " + deseqdir + "fstitch_allON_regions.bed"
     a = pybt.BedTool(deseqdir + "fstitch_allON_regions.bed").cut([0,1,2]).sort().merge()
     a.saveas(deseqdir + "counts.bed")
     for file1 in bedgraphs:
