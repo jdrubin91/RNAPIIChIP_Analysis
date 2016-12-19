@@ -11,7 +11,10 @@ def append(file1,file2):
                 line2 = F2.readline()
                 add = line2.strip().split()[-1]
                 linelist.append(line1.strip() + '\t' + add + '\n')
-                print add
+    
+    outfile = open(file1,'w')
+    for line in linelist:
+        outfile.write(line)
 
 def run(onregions,bedgraphs,deseqdir):
     os.system("cat " + ' '.join(onregions) + " > " + deseqdir + "fstitch_allON_regions.bed")
@@ -19,9 +22,7 @@ def run(onregions,bedgraphs,deseqdir):
     a = pybt.BedTool(deseqdir + "fstitch_allON_regions.bed").cut([0,1,2]).sort().merge()
     a.saveas(deseqdir + "counts.bed")
     for file1 in bedgraphs:
-        print file1
         b = a.map(b=file1,c=4,o="sum")
-        print b
         b.saveas(deseqdir + "temp.bed")
         append(deseqdir+"counts.bed",deseqdir+"temp.bed")
 
