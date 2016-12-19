@@ -20,10 +20,10 @@ def add_header(file1,header):
     linelist = list()
     with open(file1) as F:
         for line in F:
-            linelist.append(line + '\n')
+            linelist.append(line)
             
     outfile = open(file1,'w')
-    outfile.write(header)
+    outfile.write(header + '\n')
     for line in linelist:
         outfile.write(line)
 
