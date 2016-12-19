@@ -76,7 +76,7 @@ def run():
         bedgraphs = expbeds
     "Running FStitch..."
     # onregions = fstitch.run(fstitchdir,trainingdir,bedgraphs,fstitchbed)
-    onregions = '/scratch/Users/joru1876/RNAPIIChIP_Analysis/training_files/training_set_fixed.txt'
+    onregions = ['/scratch/Users/joru1876/RNAPIIChIP_Analysis/training_files/training_set_fixed.txt']
     "done\nGetting Interval File..."
     get_intervals.run(onregions,bedgraphs,deseqdir)
 
