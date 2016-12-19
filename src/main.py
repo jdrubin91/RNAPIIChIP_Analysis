@@ -11,9 +11,9 @@ __author__ = 'Jonathan Rubin'
 
 # 1. Run FSTITCH (https://github.com/azofeifa/FStitch) to determine ON/OFF regions of the genome.
 # 2. Merge ON regions from all replicates and treated/untreated
-# 3. Count FPKM of merged ON regions for all replicates (subtract appropriate FPKM from input regions)
-# 4. Generate FPKM counts for all ON regions (averaged over replicates)
-# 5. Run regions through DE-Seq
+# 3. Count FPKM of merged ON regions for all replicates
+# 4. Generate FPKM counts for all ON regions
+# 5. Run through DE-Seq
 # 6. Filter regions from Ref-Seq annotated genes
 # 7. Run MEME to get motifs
 # 8. Run Tomtom to get TFs
@@ -21,6 +21,7 @@ __author__ = 'Jonathan Rubin'
 import os
 import fstitch
 import input_normalization
+import get_intervals
 
 #Return parent directory
 def parent_dir(directory):
@@ -35,6 +36,8 @@ srcdir = os.path.dirname(os.path.realpath(__file__))
 #Fstitch bed file directory
 fstitchbed = parent_dir(srcdir) + '/fstitch_bed/'
 
+#DE-Seq files directory
+deseqdir = parent_dir(srcdir) + '/deseq_files/'
 
 #User-defined Input:
 #=========================================================================================================
@@ -47,20 +50,21 @@ fstitchdir = parent_dir(srcdir) + '/FStitch/src/FStitch'
 #BedGraph files (if not using normalization module)
 bedgraphs = []
 
-#Normalize to control?
-normalize = True
+#Normalize to control? - This module was under construction but is no longer functional. Normalization now happens
+#after Fstitch (All FStitch regions are get subtracted from input before DE-Seq)
+normalize = False
 
 #Control BedGraph files
-contbeds = ['/scratch/Shares/dowell/Pelish_RNAPII/bowtie/sortedbam/genomecoveragebed/fortdf/SRR1768126.fastq.bowtie2.sorted.BedGraph.reflected.sorted.BedGraph.mp.BedGraph', \
-            '/scratch/Shares/dowell/Pelish_RNAPII/bowtie/sortedbam/genomecoveragebed/fortdf/SRR1768127.fastq.bowtie2.sorted.BedGraph.reflected.sorted.BedGraph.mp.BedGraph', \
-            '/scratch/Shares/dowell/Pelish_RNAPII/bowtie/sortedbam/genomecoveragebed/fortdf/SRR1768130.fastq.bowtie2.sorted.BedGraph.reflected.sorted.BedGraph.mp.BedGraph', \
-            '/scratch/Shares/dowell/Pelish_RNAPII/bowtie/sortedbam/genomecoveragebed/fortdf/SRR1768131.fastq.bowtie2.sorted.BedGraph.reflected.sorted.BedGraph.mp.BedGraph']
+contbeds = ['/scratch/Shares/dowell/Pelish_RNAPII/bowtie/sortedbam/genomecoveragebed/fortdf/SRR1768126.fastq.bowtie2.sorted.BedGraph.reflected.sorted.BedGraph', \
+            '/scratch/Shares/dowell/Pelish_RNAPII/bowtie/sortedbam/genomecoveragebed/fortdf/SRR1768127.fastq.bowtie2.sorted.BedGraph.reflected.sorted.BedGraph', \
+            '/scratch/Shares/dowell/Pelish_RNAPII/bowtie/sortedbam/genomecoveragebed/fortdf/SRR1768130.fastq.bowtie2.sorted.BedGraph.reflected.sorted.BedGraph', \
+            '/scratch/Shares/dowell/Pelish_RNAPII/bowtie/sortedbam/genomecoveragebed/fortdf/SRR1768131.fastq.bowtie2.sorted.BedGraph.reflected.sorted.BedGraph']
 
 #Experimental BedGraph files
-expbeds = ['/scratch/Shares/dowell/Pelish_RNAPII/bowtie/sortedbam/genomecoveragebed/fortdf/SRR1768128.fastq.bowtie2.sorted.BedGraph.reflected.sorted.BedGraph.mp.BedGraph', \
-            '/scratch/Shares/dowell/Pelish_RNAPII/bowtie/sortedbam/genomecoveragebed/fortdf/SRR1768129.fastq.bowtie2.sorted.BedGraph.reflected.sorted.BedGraph.mp.BedGraph', \
-            '/scratch/Shares/dowell/Pelish_RNAPII/bowtie/sortedbam/genomecoveragebed/fortdf/SRR1768132.fastq.bowtie2.sorted.BedGraph.reflected.sorted.BedGraph.mp.BedGraph', \
-            '/scratch/Shares/dowell/Pelish_RNAPII/bowtie/sortedbam/genomecoveragebed/fortdf/SRR1768133.fastq.bowtie2.sorted.BedGraph.reflected.sorted.BedGraph.mp.BedGraph']
+expbeds = ['/scratch/Shares/dowell/Pelish_RNAPII/bowtie/sortedbam/genomecoveragebed/fortdf/SRR1768128.fastq.bowtie2.sorted.BedGraph.reflected.sorted.BedGraph', \
+            '/scratch/Shares/dowell/Pelish_RNAPII/bowtie/sortedbam/genomecoveragebed/fortdf/SRR1768129.fastq.bowtie2.sorted.BedGraph.reflected.sorted.BedGraph', \
+            '/scratch/Shares/dowell/Pelish_RNAPII/bowtie/sortedbam/genomecoveragebed/fortdf/SRR1768132.fastq.bowtie2.sorted.BedGraph.reflected.sorted.BedGraph', \
+            '/scratch/Shares/dowell/Pelish_RNAPII/bowtie/sortedbam/genomecoveragebed/fortdf/SRR1768133.fastq.bowtie2.sorted.BedGraph.reflected.sorted.BedGraph']
 #=========================================================================================================
 
 def run():
@@ -69,7 +73,10 @@ def run():
         bedgraphs = input_normalization.run(contbeds,expbeds)
         "done"
     "Running FStitch..."
-    fstitch.run(fstitchdir,trainingdir,bedgraphs,fstitchbed)
-    "done"
+    bedgraphs = fstitch.run(fstitchdir,trainingdir,expbeds,fstitchbed)
+    "done\nGetting Interval File..."
+    get_intervals.run(bedgraphs,deseqdir)
+
+
 
 
