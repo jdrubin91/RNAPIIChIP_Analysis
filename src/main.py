@@ -54,7 +54,7 @@ bedgraphs = []
 #after Fstitch (All FStitch regions get subtracted from input when counting reads over regions before DE-Seq)
 normalize = False
 
-#Control BedGraph files (order corresponds to expbeds)
+#Control BedGraph files (order corresponds to expbeds) - Leave as empty list if you don't want to normalize to control (or have done so in some other way)
 contbeds = ['/scratch/Shares/dowell/Pelish_RNAPII/bowtie/sortedbam/genomecoveragebed/fortdf/SRR1768126.fastq.bowtie2.sorted.BedGraph.reflected.sorted.BedGraph', \
             '/scratch/Shares/dowell/Pelish_RNAPII/bowtie/sortedbam/genomecoveragebed/fortdf/SRR1768127.fastq.bowtie2.sorted.BedGraph.reflected.sorted.BedGraph', \
             '/scratch/Shares/dowell/Pelish_RNAPII/bowtie/sortedbam/genomecoveragebed/fortdf/SRR1768130.fastq.bowtie2.sorted.BedGraph.reflected.sorted.BedGraph', \
@@ -81,7 +81,7 @@ def run():
     # onregions = fstitch.run(fstitchdir,trainingdir,expbeds,fstitchbed)
     onregions = ['/scratch/Users/joru1876/RNAPIIChIP_Analysis/training_files/training_set_fixed.txt']
     "done\nGetting Interval File..."
-    get_intervals.run(onregions,expbeds,contbeds,deseqdir,names)
+    get_intervals.run(onregions,expbeds,contbeds,deseqdir,names,norm=len(contbeds)>0)
 
 
 
