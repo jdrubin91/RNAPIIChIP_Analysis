@@ -28,7 +28,7 @@ def add_header(file1,header):
     for line in linelist:
         outfile.write(line)
 
-def subtract_files(file1,file2,outfilename,absolute=True):
+def subtract_files(file1,file2,outfilename):
     linelist = list()
     with open(file1) as F1:
         with open(file2) as F2:
@@ -40,10 +40,10 @@ def subtract_files(file1,file2,outfilename,absolute=True):
                 for i in range(3,len(line)):
                     val1 = int(line[i])
                     val2 = int(line2[i])
-                    if absolute:
-                        linelist.append(str(abs(val1-val2))+'\t')
-                    else:
+                    if val1-val2 > 0:
                         linelist.append(str(val1-val2)+'\t')
+                    else:
+                        linelist.append('0\t')
                 linelist.append('\n')
     outfile = open(outfilename, 'w')
     for line in linelist:
