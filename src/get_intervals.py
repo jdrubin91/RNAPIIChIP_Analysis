@@ -11,6 +11,7 @@ def append(file1,file2):
                 line2 = F2.readline()
                 add = line2.strip().split()[-1]
                 linelist.append(line1.strip() + '\t' + add + '\n')
+                print add
 
 def run(onregions,bedgraphs,deseqdir):
     os.system("cat " + ' '.join(onregions) + " > " + deseqdir + "fstitch_allON_regions.bed")
