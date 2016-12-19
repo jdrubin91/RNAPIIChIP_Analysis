@@ -39,6 +39,6 @@ def run(onregions,bedgraphs,deseqdir):
         b.saveas(deseqdir + "temp.bed")
         append(deseqdir+"counts.bed",deseqdir+"temp.bed")
 
-    add_header(deseqdir+"counts.bed",header)
+    add_header(deseqdir+"counts.bed",'\t'.join(header))
 
 
