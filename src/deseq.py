@@ -39,7 +39,7 @@ def run(counts,conditions,deseqdir):
             if d[site][-4] == 0 or d[site][-2] == 0:
                 foldchange = 0.0
             else:
-                foldchange = np.log2(d[site][-4]/d[site][-2])
+                foldchange = np.log2(d[site][-2]/d[site][-4])
             x.append(meanexpression) 
             d[site].append(meanexpression)
             y.append(foldchange)

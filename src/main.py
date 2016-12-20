@@ -40,6 +40,9 @@ fstitchbed = parent_dir(srcdir) + '/fstitch_bed/'
 #DE-Seq files directory
 deseqdir = parent_dir(srcdir) + '/deseq_files/'
 
+#Gene annotations file
+geneannotations = parent_dir(srcdir) + '/FStitch/UCSC_table_gene_annotations/RefSeqHG19.bed'
+
 #User-defined Input:
 #=========================================================================================================
 #Training file directory
@@ -80,7 +83,7 @@ def run():
         bedgraphs = expbeds
     "Running FStitch..."
     # onregions = fstitch.run(fstitchdir,trainingdir,expbeds,fstitchbed)
-    onregions = ['/scratch/Users/joru1876/RNAPIIChIP_Analysis/training_files/training_set_fixed.txt']
+    onregions = [geneannotations]
     "done\nGetting Interval File..."
     counts = get_intervals.run(onregions,expbeds,contbeds,deseqdir,conditions,norm=len(contbeds)>0)
     deseq.run(counts,conditions,deseqdir)
