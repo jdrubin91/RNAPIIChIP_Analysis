@@ -57,13 +57,13 @@ def run(onregions,expbeds,contbeds,deseqdir,conditions,norm):
     a = pybt.BedTool(deseqdir + "fstitch_allON_regions.bed").cut([0,1,2]).sort().merge()
     a.saveas(deseqdir + "expcounts.bed")
     for file1 in expbeds:
-        b = a.map(b=file1,c=4,o="sum")
+        b = a.map(b=file1,c=4,o="sum",null="0")
         b.saveas(deseqdir + "temp.bed")
         append(deseqdir+"expcounts.bed",deseqdir+"temp.bed")
     if norm:
         a.saveas(deseqdir + "contcounts.bed")
         for file2 in contbeds:
-            b = a.map(b=file2,c=4,o="sum")
+            b = a.map(b=file2,c=4,o="sum",null="0")
             b.saveas(deseqdir + "temp.bed")
             append(deseqdir+"contcounts.bed",deseqdir+"temp.bed")
         subtract_files(deseqdir + "expcounts.bed",deseqdir + "contcounts.bed",deseqdir+"normcounts.bed")
