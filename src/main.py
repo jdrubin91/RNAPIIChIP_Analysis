@@ -41,7 +41,7 @@ fstitchbed = parent_dir(srcdir) + '/fstitch_bed/'
 deseqdir = parent_dir(srcdir) + '/deseq_files/'
 
 #Gene annotations file
-geneannotations = parent_dir(srcdir) + '/FStitch/UCSC_table_gene_annotations/RefSeqHG19.bed'
+geneannotations = parent_dir(srcdir) + '/RefSeqHG19.bed'
 
 #User-defined Input:
 #=========================================================================================================
