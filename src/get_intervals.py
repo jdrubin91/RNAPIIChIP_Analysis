@@ -51,8 +51,8 @@ def subtract_files(file1,file2,outfilename):
     outfile.close()
                     
 
-def run(onregions,expbeds,contbeds,deseqdir,names,norm):
-    header = 'chr\tstart\tstop\t' + '\t'.join(names)
+def run(onregions,expbeds,contbeds,deseqdir,conditions,norm):
+    header = 'chr\tstart\tstop\t' + '\t'.join(conditions)
     os.system("cat " + ' '.join(onregions) + " > " + deseqdir + "fstitch_allON_regions.bed")
     a = pybt.BedTool(deseqdir + "fstitch_allON_regions.bed").cut([0,1,2]).sort().merge()
     a.saveas(deseqdir + "expcounts.bed")
@@ -68,9 +68,10 @@ def run(onregions,expbeds,contbeds,deseqdir,names,norm):
             append(deseqdir+"contcounts.bed",deseqdir+"temp.bed")
         subtract_files(deseqdir + "expcounts.bed",deseqdir + "contcounts.bed",deseqdir+"normcounts.bed")
         add_header(deseqdir+"normcounts.bed",header)
+        return deseqdir+"normcounts.bed"
     else:
         add_header(deseqdir+"expcounts.bed",header)
-        os.system("cat " + deseqdir + "expcounts.bed > " + deseqdir + "normcounts.bed")
+        return deseqdir+"expcounts.bed"
 
 
 

@@ -22,6 +22,7 @@ import os
 import fstitch
 import input_normalization
 import get_intervals
+import deseq
 
 #Return parent directory
 def parent_dir(directory):
@@ -66,8 +67,8 @@ expbeds = ['/scratch/Shares/dowell/Pelish_RNAPII/bowtie/sortedbam/genomecoverage
             '/scratch/Shares/dowell/Pelish_RNAPII/bowtie/sortedbam/genomecoveragebed/fortdf/SRR1768132.fastq.bowtie2.sorted.BedGraph.reflected.sorted.BedGraph', \
             '/scratch/Shares/dowell/Pelish_RNAPII/bowtie/sortedbam/genomecoveragebed/fortdf/SRR1768133.fastq.bowtie2.sorted.BedGraph.reflected.sorted.BedGraph']
 
-#Condition names: Name your bedgraph files in the order that they appear in expbeds
-names = ['DMSO1','DMSO2','CA1','CA2']
+#Condition names: Assign a condition to your bedgraph files in the order that they appear in expbeds
+conditions = ['DMSO','DMSO','CA','CA']
 #=========================================================================================================
 
 def run():
@@ -81,7 +82,8 @@ def run():
     # onregions = fstitch.run(fstitchdir,trainingdir,expbeds,fstitchbed)
     onregions = ['/scratch/Users/joru1876/RNAPIIChIP_Analysis/training_files/training_set_fixed.txt']
     "done\nGetting Interval File..."
-    get_intervals.run(onregions,expbeds,contbeds,deseqdir,names,norm=len(contbeds)>0)
+    counts = get_intervals.run(onregions,expbeds,contbeds,deseqdir,conditions,norm=len(contbeds)>0)
+    deseq.run(counts,conditions)
 
 
 
