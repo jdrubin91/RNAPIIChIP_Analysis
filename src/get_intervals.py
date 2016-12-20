@@ -71,7 +71,7 @@ def normalize_file(infile,outfile):
     for k in range(len(sites)):
         outfile.write('\t'.join(sites[k]))
         outfile.write('\t')
-        for l in norm_factors:
+        for l in range(len(norm_factors)):
             outfile.write(str(norm_factors[l]*vals[k][l]) + '\t')
         outfile.write('\n')
 
