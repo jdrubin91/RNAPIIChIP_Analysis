@@ -42,7 +42,7 @@ def run(counts,conditions,deseqdir):
     F = plt.figure() 
     ax = F.add_subplot(111)
     plt.scatter(x,y,c='b',edgecolor="",s=14)
-    plt.savefig(savedir + 'MA_plot.png')
+    plt.savefig(deseqdir + 'MA_plot.png')
             
 
                 
