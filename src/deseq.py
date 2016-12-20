@@ -28,7 +28,8 @@ def run(counts,conditions):
                 values = list()
                 for i in indexlist:
                     values.append(d[site][i])
-                d[site].append(np.mean(values),np.var(values))
+                d[site].append(np.mean(values))
+                d[site].append(np.var(values))
             d[site].append(np.mean([d[site][-4],d[site][-2]]))
             d[site].append(d[site][-5]-d[site][-3])
     print d
