@@ -39,11 +39,11 @@ def run(counts,conditions,deseqdir):
             if d[site][-4] == 0 or d[site][-2] == 0:
                 foldchange = 0.0
             else:
-                foldchange = d[site][-4]/d[site][-2]
+                foldchange = np.log2(d[site][-4]/d[site][-2])
             x.append(meanexpression) 
             d[site].append(meanexpression)
-            y.append(np.log2(foldchange))
-            d[site].append(np.log2(foldchange))
+            y.append(foldchange)
+            d[site].append(foldchange)
     F = plt.figure() 
     ax = F.add_subplot(111)
     plt.scatter(x,y,c='b',edgecolor="",s=14)
