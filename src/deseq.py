@@ -47,7 +47,7 @@ def run(counts,conditions,deseqdir):
     F = plt.figure() 
     ax = F.add_subplot(111)
     plt.scatter(x,y,c='b',edgecolor="",s=14)
-    ax.xscale('log')
+    plt.set_xscale('log')
     plt.savefig(deseqdir + 'MA_plot.png')
 
             
