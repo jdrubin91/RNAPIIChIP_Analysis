@@ -83,7 +83,7 @@ def run():
     onregions = ['/scratch/Users/joru1876/RNAPIIChIP_Analysis/training_files/training_set_fixed.txt']
     "done\nGetting Interval File..."
     counts = get_intervals.run(onregions,expbeds,contbeds,deseqdir,conditions,norm=len(contbeds)>0)
-    deseq.run(counts,conditions)
+    deseq.run(counts,conditions,deseqdir)
 
 
 

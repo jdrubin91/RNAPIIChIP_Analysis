@@ -1,8 +1,11 @@
 __author__ = 'Jonathan Rubin'
 
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
 import numpy as np
 
-def run(counts,conditions):
+def run(counts,conditions,deseqdir):
     d = dict()
     conditionNames = list()
     conditionIndexes = list()
@@ -15,6 +18,8 @@ def run(counts,conditions):
             conditionIndexes[conditionNames.index(condition)].append(i)
     if len(conditionNames) > 2:
         print "Error: More than two conditions. All replicates should be labeled the same."
+    x = list()
+    y = list()
     with open(counts) as F:
         F.readline()
         for line in F:
@@ -30,9 +35,14 @@ def run(counts,conditions):
                     values.append(d[site][i])
                 d[site].append(np.mean(values))
                 d[site].append(np.var(values))
+            x.append(np.mean([d[site][-4],d[site][-2]])) 
             d[site].append(np.mean([d[site][-4],d[site][-2]]))
+            y.append(d[site][-5]-d[site][-3])
             d[site].append(d[site][-5]-d[site][-3])
-    print d
+    F = plt.figure() 
+    ax = F.add_subplot(111)
+    plt.scatter(x,y,c='b',edgecolor="",s=14)
+    plt.savefig(savedir + 'MA_plot.png')
             
 
                 
