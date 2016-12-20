@@ -1,6 +1,7 @@
 __author__ = 'Jonathan Rubin'
 
 import os
+import numpy as np
 import pybedtools as pybt
 
 def append(file1,file2):

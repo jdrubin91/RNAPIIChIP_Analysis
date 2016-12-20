@@ -86,7 +86,7 @@ def run():
     onregions = [geneannotations]
     "done\nGetting Interval File..."
     counts = get_intervals.run(onregions,expbeds,contbeds,deseqdir,conditions,norm=len(contbeds)>0)
-    deseq.run(counts,conditions,deseqdir)
+    # deseq.run(counts,conditions,deseqdir)
 
 
 
