@@ -46,7 +46,8 @@ def run(counts,conditions,deseqdir):
             d[site].append(foldchange)
     F = plt.figure() 
     ax = F.add_subplot(111)
-    plt.semilogx(x,y,c='b',edgecolor="",s=14)
+    plt.scatter(x,y,c='b',edgecolor="",s=14)
+    ax.xscale('log')
     plt.savefig(deseqdir + 'MA_plot.png')
 
             
