@@ -49,6 +49,26 @@ def subtract_files(file1,file2,outfilename):
     for line in linelist:
         outfile.write(line)
     outfile.close()
+
+def normalize_file(infile,outfile):
+    sites = list()
+    vals = list()
+    with open(infile) as F:
+        for line in F:
+            line = line.strip().split()
+            sites.append(line[:3])
+            vals.append([float(x) for x in line[3:]])
+    t = np.array(vals).T
+    norm_factors = list()
+    for i in range(len(t)):
+        norm_factors.append(sum(t[i]))
+    mean = np.mean(norm_factors)
+    for j in range(len(norm_factors)):
+        norm_factors[j] = norm_factors[j]/mean
+    print norm_factors
+
+
+
                     
 
 def run(onregions,expbeds,contbeds,deseqdir,conditions,norm):
@@ -66,7 +86,8 @@ def run(onregions,expbeds,contbeds,deseqdir,conditions,norm):
             b = a.map(b=file2,c=4,o="sum",null="0")
             b.saveas(deseqdir + "temp.bed")
             append(deseqdir+"contcounts.bed",deseqdir+"temp.bed")
-        subtract_files(deseqdir + "expcounts.bed",deseqdir + "contcounts.bed",deseqdir+"normcounts.bed")
+        subtract_files(deseqdir + "expcounts.bed",deseqdir + "contcounts.bed",deseqdir+"subcounts.bed")
+        normalize_file(deseqdir+"subcounts.bed",deseqdir+"normcounts.bed")
         add_header(deseqdir+"normcounts.bed",header)
         return deseqdir+"normcounts.bed"
     else:
