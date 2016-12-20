@@ -27,7 +27,7 @@ def run(counts,conditions,deseqdir):
             site = ':'.join(line[:3])
             d[site] = list()
             for val in line[3:]:
-                #d[chr:start:stop] = [val1,val2,val3,val4,...,valn,condition1mean,var1,condition2mean,var2,meanexpression,meandifference]
+                #d[chr:start:stop] = [val1,val2,val3,val4,...,valn,condition1mean,var1,condition2mean,var2,meanexpression,log2foldchange]
                 d[site].append(float(val))
             for indexlist in conditionIndexes:
                 values = list()
@@ -35,10 +35,15 @@ def run(counts,conditions,deseqdir):
                     values.append(d[site][i])
                 d[site].append(np.mean(values))
                 d[site].append(np.var(values))
-            x.append(np.mean([d[site][-4],d[site][-2]])) 
-            d[site].append(np.mean([d[site][-4],d[site][-2]]))
-            y.append(np.log2(d[site][-5]/d[site][-3]))
-            d[site].append(d[site][-5]-d[site][-3])
+            meanexpression = np.mean([d[site][-4],d[site][-2]])
+            if d[site][-4] == 0 or d[site][-2] == 0:
+                foldchange = 0.0
+            else:
+                foldchange = d[site][-4]/d[site][-2]
+            x.append(meanexpression) 
+            d[site].append(meanexpression)
+            y.append(np.log2(foldchange))
+            d[site].append(np.log2(foldchange))
     F = plt.figure() 
     ax = F.add_subplot(111)
     plt.scatter(x,y,c='b',edgecolor="",s=14)
