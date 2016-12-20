@@ -66,6 +66,13 @@ def normalize_file(infile,outfile):
     for j in range(len(norm_factors)):
         norm_factors[j] = norm_factors[j]/mean
     print norm_factors
+    outfile = open(outfile,'w')
+    for k in range(len(sites)):
+        outfile.write('\t'.join(sites[k]))
+        outfile.write('\t')
+        for l in norm_factors:
+            outfile.write(str(norm_factors[l]*vals[k][l]) + '\t')
+        outfile.write('\n')
 
 
 
@@ -91,8 +98,9 @@ def run(onregions,expbeds,contbeds,deseqdir,conditions,norm):
         add_header(deseqdir+"normcounts.bed",header)
         return deseqdir+"normcounts.bed"
     else:
-        add_header(deseqdir+"expcounts.bed",header)
-        return deseqdir+"expcounts.bed"
+        normalize_file(deseqdir+"expcounts.bed",deseqdir+"normcounts.bed")
+        add_header(deseqdir+"normcounts.bed",header)
+        return deseqdir+"normcounts.bed"
 
 
 
