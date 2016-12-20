@@ -37,7 +37,7 @@ def run(counts,conditions,deseqdir):
                 d[site].append(np.var(values))
             x.append(np.mean([d[site][-4],d[site][-2]])) 
             d[site].append(np.mean([d[site][-4],d[site][-2]]))
-            y.append(d[site][-5]-d[site][-3])
+            y.append(np.log2(d[site][-5]/d[site][-3]))
             d[site].append(d[site][-5]-d[site][-3])
     F = plt.figure() 
     ax = F.add_subplot(111)
