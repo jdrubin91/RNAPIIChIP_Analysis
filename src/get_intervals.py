@@ -66,7 +66,6 @@ def normalize_file(infile,outfile):
     mean = np.mean(norm_factors)
     for j in range(len(norm_factors)):
         norm_factors[j] = norm_factors[j]/mean
-    print norm_factors
     outfile = open(outfile,'w')
     for k in range(len(sites)):
         outfile.write('\t'.join(sites[k]))

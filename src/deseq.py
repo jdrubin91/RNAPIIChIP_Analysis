@@ -48,6 +48,9 @@ def run(counts,conditions,deseqdir):
     ax = F.add_subplot(111)
     plt.xscale('log')
     plt.scatter(x,y,c='b',edgecolor="",s=14)
+    plt.title(conditionNames[1] + ' vs. ' + conditionNames[0])
+    plt.ylabel("log2(" + conditionNames[1] + "/" + conditionNames[0] + ")")
+    plt.xlabel("Mean Expression")
     plt.savefig(deseqdir + 'MA_plot.png')
 
             
