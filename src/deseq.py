@@ -68,8 +68,8 @@ def run(counts,conditions,deseqdir):
     windows = int(np.log10(high))
     p = 0.1
     for i in range(windows):
-        j = (i*10)+low
-        k = (i+low)*10 if (i+low)*10 < high else high
+        j = (10**i)+low
+        k = 10**(i+low) if 10**(i+low) < high else high
         print j,k
         windowx = list()
         windowy = list()
