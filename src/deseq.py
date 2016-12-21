@@ -76,7 +76,6 @@ def run(counts,conditions,deseqdir):
         keys = list()
         for l in range(len(x)):
             if j < x[l] < k:
-                print "True1"
                 keys.append(sites[l])
                 windowx.append(x[l])
                 windowy.append(y[l])
