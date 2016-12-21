@@ -88,8 +88,8 @@ def run(counts,conditions,deseqdir):
             meanrep = np.mean(replist)
             srep = np.std(replist)/(len(replist))**(1/2)
             Z = (meany-meanrep)/((sy)**2 + (srep)**2)**(1/2)
-            # pval = min(stats.norm.cdf(Z),1-stats.norm.cdf(Z))
-            pval = stats.ks_2samp(replist,windowy)[1]
+            pval = min(stats.norm.cdf(Z),1-stats.norm.cdf(Z))
+            # pval = stats.ks_2samp(replist,windowy)[1]
             d[key].append(pval)
             if pval < p:
                 sigx.append(d[key][-3])
