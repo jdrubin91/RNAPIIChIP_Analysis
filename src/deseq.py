@@ -65,7 +65,7 @@ def run(counts,conditions,deseqdir):
     low = 10
     high = max(x)
     windows = int(np.log10(high))
-    p = 0.1
+    p = 0.01
     for i in range(windows):
         j = (10**i)+low
         k = 10**(i+1)+low if 10**(i+1)+low < high else high
