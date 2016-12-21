@@ -97,7 +97,7 @@ def run(counts,conditions,deseqdir):
                 sigx.append(d[key][-2])
                 sigy.append(d[key][-1])
 
-
+        print sigx,sigy
 
 
 
