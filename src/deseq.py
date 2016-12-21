@@ -85,12 +85,13 @@ def run(counts,conditions,deseqdir):
             srep = np.std(replist)/(len(replist))**(1/2)
             Z = (meany-meanrep)/((sy)**2 + (srep)**2)**(1/2)
             pval = min(stats.norm.cdf(Z),1-stats.norm.cdf(Z))
+            print pval
             d[key].append(pval)
             if pval < p:
+                print "True"
                 sigx.append(d[key][-2])
                 sigy.append(d[key][-1])
 
-    print d
 
 
 
