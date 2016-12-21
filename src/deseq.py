@@ -75,10 +75,14 @@ def run(counts,conditions,deseqdir):
                 keys.append(sites[l])
                 windowx.append(x[l])
                 windowy.append(y[l])
-        
+        meany = np.mean(windowy)
+        sy = np.std(windowy)/(len(windowy))**(1/2)
         for key in keys:
             replist = d[key][1]
-            pval = stats.ks_2samp(windowy, replist)[1]
+            meanrep = np.mean(replist)
+            srep = np.std(replist)/(len(replist))**(1/2)
+            Z = (meany-meanrep)/((sy)**2 + (srep)**2)**(1/2)
+            pval = min(stats.norm.cdf(Z),1-stats.norm.cdf(Z))
             d[key].append(pval)
             if pval < p:
                 sigx.append(d[key][-2])
