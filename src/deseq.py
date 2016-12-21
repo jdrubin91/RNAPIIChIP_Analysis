@@ -30,7 +30,6 @@ def run(counts,conditions,deseqdir):
             site = ':'.join(line[:3])
             d[site] = [[]]
             for val in line[3:]:
-                #d[chr:start:stop] = [[val1,val2,val3,val4,...,valn],[log2foldchangeiterations],condition1mean,condition2mean,meanexpression,log2foldchangemean]
                 d[site][0].append(float(val))
             indexesi = conditionIndexes[0]
             indexesj = conditionIndexes[1]
@@ -58,13 +57,13 @@ def run(counts,conditions,deseqdir):
             d[site].append(foldchange)
             sites.append(site)
 
+    #d[chr:start:stop] = [[val1,val2,val3,val4,...,valn],[log2foldchangeiterations],condition1mean,condition2mean,meanexpression,log2foldchangemean]
 
     sigx = list()
     sigy = list()
 
     low = 10
     high = max(x)
-    print "low: ", low, "high: ",high
     windows = int(np.log10(high))
     p = 0.1
     for i in range(windows):
@@ -89,12 +88,14 @@ def run(counts,conditions,deseqdir):
             meanrep = np.mean(replist)
             srep = np.std(replist)/(len(replist))**(1/2)
             Z = (meany-meanrep)/((sy)**2 + (srep)**2)**(1/2)
-            pval = min(stats.norm.cdf(Z),1-stats.norm.cdf(Z))
+            # pval = min(stats.norm.cdf(Z),1-stats.norm.cdf(Z))
+            pval = stats.ks_2samp(replist,windowy)[1]
             d[key].append(pval)
             if pval < p:
                 sigx.append(d[key][-3])
                 sigy.append(d[key][-2])
 
+    #d[chr:start:stop] = [[val1,val2,val3,val4,...,valn],[log2foldchangeiterations],condition1mean,condition2mean,meanexpression,log2foldchangemean,pval]
 
 
 
