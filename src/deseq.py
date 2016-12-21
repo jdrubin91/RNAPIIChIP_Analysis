@@ -77,8 +77,12 @@ def run(counts,conditions,deseqdir):
                 keys.append(sites[l])
                 windowx.append(x[l])
                 windowy.append(y[l])
-        meany = np.mean(windowy)
-        sy = np.std(windowy)/(len(windowy))**(1/2)
+        if len(windowy) < 1:
+            meany = 0.0
+            sy = 0.0
+        else:
+            meany = np.mean(windowy)
+            sy = np.std(windowy)/(len(windowy))**(1/2)
         for key in keys:
             replist = d[key][1]
             meanrep = np.mean(replist)
