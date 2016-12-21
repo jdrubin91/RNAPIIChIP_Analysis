@@ -69,7 +69,7 @@ def run(counts,conditions,deseqdir):
     p = 0.1
     for i in range(windows):
         j = (10**i)+low
-        k = 10**(i+low) if 10**(i+low) < high else high
+        k = 10**(i+low+1) if 10**(i+low+1) < high else high
         print j,k
         windowx = list()
         windowy = list()
