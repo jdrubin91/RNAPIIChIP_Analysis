@@ -41,8 +41,8 @@ def run(counts,conditions,deseqdir):
                 else:
                     values.append(np.log2(r[1]/r[0]))
             d[site].append(values)
-            condition1mean = np.mean(valuesi)
-            condition2mean = np.mean(valuesj)
+            condition1mean = np.mean([d[site][0][i] for i in valuesi])
+            condition2mean = np.mean([d[site][0][j] for j in valuesj])
             d[site].append(condition1mean)
             d[site].append(condition2mean)
             meanexpression = np.mean([condition1mean,condition2mean])
