@@ -63,7 +63,7 @@ def run(counts,conditions,deseqdir):
     low = min(x)
     high = max(x)
     windows = int(np.log10(high))
-    p = 0.05
+    p = 0.1
     for i in range(windows):
         j = (i*10)+low
         k = (i+low)*10 if (i+low)*10 < high else high
@@ -88,6 +88,7 @@ def run(counts,conditions,deseqdir):
                 sigx.append(d[key][-2])
                 sigy.append(d[key][-1])
 
+    print d
 
 
 
