@@ -64,6 +64,7 @@ def run(counts,conditions,deseqdir):
 
     low = min(x)
     high = max(x)
+    print "low: ", low, "high: ",high
     windows = int(np.log10(high))
     p = 0.1
     for i in range(windows):
