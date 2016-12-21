@@ -105,7 +105,7 @@ def run(counts,conditions,deseqdir):
     outfile = open(deseqdir+'allgenes.bed','w')
     for key in sortedkeys:
         outfile.write('\t'.join(key)+'\t')
-        outfilew.write('\t'.join(d[key][-5:])+'\n')
+        outfile.write('\t'.join(d[key][-5:])+'\n')
 
 
 
