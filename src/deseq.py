@@ -70,7 +70,6 @@ def run(counts,conditions,deseqdir):
     for i in range(windows):
         j = (10**i)+low
         k = 10**(i+1)+low if 10**(i+1)+low < high else high
-        print j,k
         windowx = list()
         windowy = list()
         keys = list()
@@ -93,11 +92,8 @@ def run(counts,conditions,deseqdir):
             pval = min(stats.norm.cdf(Z),1-stats.norm.cdf(Z))
             d[key].append(pval)
             if pval < p:
-                print pval
-                sigx.append(d[key][-2])
-                sigy.append(d[key][-1])
-
-        print sigx,sigy
+                sigx.append(d[key][-3])
+                sigy.append(d[key][-2])
 
 
 
