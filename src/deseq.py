@@ -36,6 +36,7 @@ def run(counts,conditions,deseqdir):
             indexesj = conditionIndexes[1]
             valuesi = [d[site][0][i] for i in indexesi]
             valuesj = [d[site][0][j] for j in indexesj]
+            values = list()
             for r in itertools.product(valuesi, valuesj):
                 if r[0] == 0 or r[1] == 0:
                     values.append(0.0)
