@@ -100,14 +100,12 @@ def run(counts,conditions,deseqdir):
                 sigy.append(d[key][-2])
                 sigsite.append(key)
 
-    # for key in d:
-    #     if len(d[key]) < 7:
-    #         for i in range(7-len(d[key])):
-    #             d[key].append(1.0)
+
     #d[chr:start:stop] = [[val1,val2,val3,val4,...,valn],[log2foldchangeiterations],condition1mean,condition2mean,meanexpression,log2foldchangemean,pval]
     sortedkeys = [m for (n,m) in sorted(pvals)]
     outfile = open(deseqdir+'allgenes.bed','w')
     for key in sortedkeys:
+        outfile.write("chr\tstart\tstop\t"+conditionNames[0]+"\t"+conditionNames[1]+"\tmeanexpression\tlog2foldchange\tpval\n")
         outfile.write('\t'.join(key.split(':'))+'\t')
         outfile.write('\t'.join([str(val) for val in d[key][-5:]])+'\n')
 
