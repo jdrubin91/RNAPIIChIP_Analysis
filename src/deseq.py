@@ -65,7 +65,7 @@ def run(counts,conditions,deseqdir):
     low = 10
     high = max(x)
     windows = int(np.log10(high))
-    p = 0.01
+    p = 0.001
     for i in range(windows):
         j = (10**i)+low
         k = 10**(i+1)+low if 10**(i+1)+low < high else high
@@ -88,8 +88,8 @@ def run(counts,conditions,deseqdir):
             meanrep = np.mean(replist)
             srep = np.std(replist)/(len(replist))**(1/2)
             Z = (meany-meanrep)/((sy)**2 + (srep)**2)**(1/2)
-            pval = min(stats.norm.cdf(Z),1-stats.norm.cdf(Z))
-            # pval = stats.ks_2samp(replist,windowy)[1]
+            # pval = min(stats.norm.cdf(Z),1-stats.norm.cdf(Z))
+            pval = stats.ks_2samp(replist,windowy)[1]
             d[key].append(pval)
             if pval < p:
                 sigx.append(d[key][-3])
