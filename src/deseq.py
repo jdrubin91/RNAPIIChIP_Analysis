@@ -101,7 +101,7 @@ def run(counts,conditions,deseqdir):
                 sigsite.append(key)
 
     #d[chr:start:stop] = [[val1,val2,val3,val4,...,valn],[log2foldchangeiterations],condition1mean,condition2mean,meanexpression,log2foldchangemean,pval]
-    sortedkeys = [y for (y,x) in sorted(zip(d.keys(),pvals))]
+    sortedkeys = [n for (n,m) in sorted(zip(d.keys(),pvals))]
     outfile = open(deseqdir+'allgenes.bed','w')
     for key in sortedkeys:
         outfile.write('\t'.join(key)+'\t')
