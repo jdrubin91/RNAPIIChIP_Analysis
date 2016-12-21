@@ -32,17 +32,18 @@ def run(counts,conditions,deseqdir):
             for val in line[3:]:
                 #d[chr:start:stop] = [[val1,val2,val3,val4,...,valn],[log2foldchangeiterations],condition1mean,condition2mean,meanexpression,log2foldchangemean]
                 d[site][0].append(float(val))
-            valuesi = conditionIndexes[0]
-            valuesj = conditionIndexes[1]
-            values = list()
+            indexesi = conditionIndexes[0]
+            indexesj = conditionIndexes[1]
+            valuesi = [d[site][0][i] for i in indexesi]
+            values = [d[site][0][j] for j in indexesj]
             for r in itertools.product(valuesi, valuesj):
                 if r[0] == 0 or r[1] == 0:
                     values.append(0.0)
                 else:
                     values.append(np.log2(r[1]/r[0]))
             d[site].append(values)
-            condition1mean = np.mean([d[site][0][i] for i in valuesi])
-            condition2mean = np.mean([d[site][0][j] for j in valuesj])
+            condition1mean = np.mean(valuesi)
+            condition2mean = np.mean(valuesj)
             d[site].append(condition1mean)
             d[site].append(condition2mean)
             meanexpression = np.mean([condition1mean,condition2mean])
