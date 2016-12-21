@@ -62,14 +62,14 @@ def run(counts,conditions,deseqdir):
     sigx = list()
     sigy = list()
 
-    low = min(x)
+    low = 10
     high = max(x)
     print "low: ", low, "high: ",high
     windows = int(np.log10(high))
     p = 0.1
     for i in range(windows):
         j = (10**i)+low
-        k = 10**(i+low+1) if 10**(i+low+1) < high else high
+        k = 10**(i+1) if 10**(i+1) < high else high
         print j,k
         windowx = list()
         windowy = list()
