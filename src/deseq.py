@@ -69,11 +69,13 @@ def run(counts,conditions,deseqdir):
     for i in range(windows):
         j = (i*10)+low
         k = (i+low)*10 if (i+low)*10 < high else high
+        print j,k
         windowx = list()
         windowy = list()
         keys = list()
         for l in range(len(x)):
             if j < x[l] < k:
+                print "True1"
                 keys.append(sites[l])
                 windowx.append(x[l])
                 windowy.append(y[l])
@@ -92,7 +94,7 @@ def run(counts,conditions,deseqdir):
             print pval
             d[key].append(pval)
             if pval < p:
-                print "True"
+                print "True2"
                 sigx.append(d[key][-2])
                 sigy.append(d[key][-1])
 
