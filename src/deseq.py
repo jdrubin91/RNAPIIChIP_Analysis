@@ -69,7 +69,7 @@ def run(counts,conditions,deseqdir):
     p = 0.1
     for i in range(windows):
         j = (10**i)+low
-        k = 10**(i+1) if 10**(i+1) < high else high
+        k = 10**(i+1)+low if 10**(i+1)+low < high else high
         print j,k
         windowx = list()
         windowy = list()
@@ -92,10 +92,9 @@ def run(counts,conditions,deseqdir):
             srep = np.std(replist)/(len(replist))**(1/2)
             Z = (meany-meanrep)/((sy)**2 + (srep)**2)**(1/2)
             pval = min(stats.norm.cdf(Z),1-stats.norm.cdf(Z))
-            print pval
             d[key].append(pval)
             if pval < p:
-                print "True2"
+                print pval
                 sigx.append(d[key][-2])
                 sigy.append(d[key][-1])
 
