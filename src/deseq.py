@@ -41,6 +41,7 @@ def run(counts,conditions,deseqdir):
                     values.append(0.0)
                 else:
                     values.append(np.log2(r[1]/r[0]))
+                    values.append(np.log2(r[0]/r[1]))
             d[site].append(values)
             condition1mean = np.mean(valuesi)
             condition2mean = np.mean(valuesj)
@@ -61,6 +62,8 @@ def run(counts,conditions,deseqdir):
 
     sigx = list()
     sigy = list()
+    sigsite = list()
+    pvals = list()
 
     low = 10
     high = max(x)
@@ -90,13 +93,19 @@ def run(counts,conditions,deseqdir):
             Z = (meany-meanrep)/((sy)**2 + (srep)**2)**(1/2)
             # pval = min(stats.norm.cdf(Z),1-stats.norm.cdf(Z))
             pval = stats.ks_2samp(replist,windowy)[1]
+            pvals.append(pval)
             d[key].append(pval)
             if pval < p:
                 sigx.append(d[key][-3])
                 sigy.append(d[key][-2])
+                sigsite.append(key)
 
     #d[chr:start:stop] = [[val1,val2,val3,val4,...,valn],[log2foldchangeiterations],condition1mean,condition2mean,meanexpression,log2foldchangemean,pval]
-
+    sortedkeys = [y for (y,x) in sorted(zip(d.keys(),pvals))]
+    outfile = open(deseqdir+'allgenes.bed','w')
+    for key in sortedkeys:
+        outfile.write('\t'.join(key)+'\t')
+        outfilew.write('\t'.join(d[key][-5:])+'\n')
 
 
 
