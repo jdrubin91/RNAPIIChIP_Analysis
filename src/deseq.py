@@ -104,7 +104,7 @@ def run(counts,conditions,deseqdir):
     sortedkeys = [n for (n,m) in sorted(zip(d.keys(),pvals))]
     outfile = open(deseqdir+'allgenes.bed','w')
     for key in sortedkeys:
-        outfile.write('\t'.join(key)+'\t')
+        outfile.write('\t'.join(key.split(':'))+'\t')
         outfile.write('\t'.join([str(val) for val in d[key][-5:]])+'\n')
 
 
