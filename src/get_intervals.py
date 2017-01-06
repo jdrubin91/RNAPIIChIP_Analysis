@@ -78,7 +78,7 @@ def normalize_file(infile,outfile):
 
                     
 
-def run(onregions,expbeds,contbeds,deseqdir,conditions,norm,geneannotations,genefilter):
+def run(onregions,expbeds,contbeds,deseqdir,conditions,geneannotations,genefilter,norm):
     header = 'chr\tstart\tstop\t' + '\t'.join(conditions)
     os.system("cat " + ' '.join(onregions) + " > " + deseqdir + "fstitch_allON_regions.bed")
     a = pybt.BedTool(deseqdir + "fstitch_allON_regions.bed").cut([0,1,2]).sort().merge()
