@@ -23,6 +23,7 @@ import fstitch
 import input_normalization
 import get_intervals
 import deseq
+import motif_enrichment
 
 #Return parent directory
 def parent_dir(directory):
@@ -72,6 +73,9 @@ expbeds = ['/scratch/Shares/dowell/Pelish_RNAPII/bowtie/sortedbam/genomecoverage
 
 #Condition names: Assign a condition to your bedgraph files in the order that they appear in expbeds
 conditions = ['DMSO','DMSO','CA','CA']
+
+#Filter for gene annotations? (Only search unnanotated regions for motif hits?)
+genefilter = False
 #=========================================================================================================
 
 def run():
@@ -82,11 +86,12 @@ def run():
     else:
         bedgraphs = expbeds
     "Running FStitch..."
-    # onregions = fstitch.run(fstitchdir,trainingdir,expbeds,fstitchbed)
-    onregions = [geneannotations]
+    onregions = fstitch.run(fstitchdir,trainingdir,expbeds,fstitchbed)
+    # onregions = [geneannotations]
     "done\nGetting Interval File..."
-    counts = get_intervals.run(onregions,expbeds,contbeds,deseqdir,conditions,norm=len(contbeds)>0)
-    deseq.run(counts,conditions,deseqdir)
+    counts = get_intervals.run(onregions,expbeds,contbeds,deseqdir,conditions,norm=len(contbeds)>0,geneannotations,genefilter)
+    results = deseq.run(counts,conditions,deseqdir)
+    motif_enrichment.run()
 
 
 

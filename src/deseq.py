@@ -103,7 +103,7 @@ def run(counts,conditions,deseqdir):
 
     #d[chr:start:stop] = [[val1,val2,val3,val4,...,valn],[log2foldchangeiterations],condition1mean,condition2mean,meanexpression,log2foldchangemean,pval]
     sortedkeys = [m for (n,m) in sorted(pvals)]
-    outfile = open(deseqdir+'allgenes.bed','w')
+    outfile = open(deseqdir+'deseq_results.bed','w')
     outfile.write("chr\tstart\tstop\t"+conditionNames[0]+"\t"+conditionNames[1]+"\tmeanexpression\tlog2foldchange\tpval\n")
     for key in sortedkeys:
         outfile.write('\t'.join(key.split(':'))+'\t')
@@ -121,6 +121,7 @@ def run(counts,conditions,deseqdir):
     plt.xlabel("Mean Expression")
     plt.savefig(deseqdir + 'MA_plot.png')
 
+    return deseqdir + 'deseq_results.bed'
 
             
 

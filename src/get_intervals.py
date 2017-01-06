@@ -78,10 +78,13 @@ def normalize_file(infile,outfile):
 
                     
 
-def run(onregions,expbeds,contbeds,deseqdir,conditions,norm):
+def run(onregions,expbeds,contbeds,deseqdir,conditions,norm,geneannotations,genefilter):
     header = 'chr\tstart\tstop\t' + '\t'.join(conditions)
     os.system("cat " + ' '.join(onregions) + " > " + deseqdir + "fstitch_allON_regions.bed")
     a = pybt.BedTool(deseqdir + "fstitch_allON_regions.bed").cut([0,1,2]).sort().merge()
+    if genefilter:
+        b = pybt.BedTool(geneannotations).cut([0,1,2]).sort()
+        a = a-b
     a.saveas(deseqdir + "expcounts.bed")
     for file1 in expbeds:
         b = a.map(b=file1,c=4,o="sum",null="0")
