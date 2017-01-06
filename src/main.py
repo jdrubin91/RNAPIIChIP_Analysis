@@ -91,7 +91,7 @@ def run():
     onregions = fstitch.run(fstitchdir,trainingdir,expbeds,fstitchbed)
     # onregions = [geneannotations]
     "done\nGetting Interval File..."
-    counts = get_intervals.run(onregions,expbeds,contbeds,deseqdir,conditions,norm=norm,geneannotations,genefilter)
+    counts = get_intervals.run(onregions,expbeds,contbeds,deseqdir,conditions,norm=True,geneannotations,genefilter)
     results = deseq.run(counts,conditions,deseqdir)
     motif_enrichment.run()
 
