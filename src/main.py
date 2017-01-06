@@ -88,8 +88,8 @@ def run():
     else:
         bedgraphs = expbeds
     "Running FStitch..."
-    onregions = fstitch.run(fstitchdir,trainingdir,expbeds,fstitchbed)
-    # onregions = [geneannotations]
+    # onregions = fstitch.run(fstitchdir,trainingdir,expbeds,fstitchbed)
+    onregions = [geneannotations]
     "done\nGetting Interval File..."
     counts = get_intervals.run(onregions,expbeds,contbeds,deseqdir,conditions,norm=True,geneannotations,genefilter)
     results = deseq.run(counts,conditions,deseqdir)
