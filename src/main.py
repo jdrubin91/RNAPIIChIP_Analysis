@@ -76,6 +76,8 @@ conditions = ['DMSO','DMSO','CA','CA']
 
 #Filter for gene annotations? (Only search unnanotated regions for motif hits?)
 genefilter = False
+
+norm = len(contbeds)>0
 #=========================================================================================================
 
 def run():
@@ -89,7 +91,7 @@ def run():
     onregions = fstitch.run(fstitchdir,trainingdir,expbeds,fstitchbed)
     # onregions = [geneannotations]
     "done\nGetting Interval File..."
-    counts = get_intervals.run(onregions,expbeds,contbeds,deseqdir,conditions,norm=len(contbeds)>0,geneannotations,genefilter)
+    counts = get_intervals.run(onregions,expbeds,contbeds,deseqdir,conditions,norm=norm,geneannotations,genefilter)
     results = deseq.run(counts,conditions,deseqdir)
     motif_enrichment.run()
 
