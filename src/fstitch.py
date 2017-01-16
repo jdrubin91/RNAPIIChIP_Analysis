@@ -13,7 +13,7 @@ def run(fstitchdir,trainingdir,bedgraphs,fstitchbed):
         os.system(fstitchdir + " train -i " + file1 + " -j " + trainingfile + " -o " + trainingdir + filename + "_parameters.out") 
         os.system(fstitchdir + " segment -i " + file1 + " -k " + trainingdir + filename + "_parameters.out" + " -o " + fstitchbed + filename + ".bed")
         outfile = open(fstitchbed + filename + "_ON.bed",'w')
-        with open(fstitchbed + filename + ".bed") as F:
+        with open(fstitchbed + filename + ".bed.forward.bed") as F:
             for line in F:
                 if 'ON' in line:
                     outfile.write(line)
