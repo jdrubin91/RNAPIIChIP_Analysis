@@ -108,7 +108,15 @@ def run(counts,conditions,deseqdir):
     for key in sortedkeys:
         outfile.write('\t'.join(key.split(':'))+'\t')
         outfile.write('\t'.join([str(val) for val in d[key][-5:]])+'\n')
+    outfile.close()
 
+    outfile2 = open(deseqdir+'deseq_hits_p_'+str(p)+'.bed','w')
+    outfile2.write("chr\tstart\tstop\t"+conditionNames[0]+"\t"+conditionNames[1]+"\tmeanexpression\tlog2foldchange\tpval\n")
+    for key in sortedkeys:
+        if d[key][-1] < p:
+            outfile2.write('\t'.join(key.split(':'))+'\t')
+            outfile2.write('\t'.join([str(val) for val in d[key][-5:]])+'\n')
+    outfile2.close()
 
 
     F = plt.figure() 
@@ -121,7 +129,7 @@ def run(counts,conditions,deseqdir):
     plt.xlabel("Mean Expression")
     plt.savefig(deseqdir + 'MA_plot.png')
 
-    return deseqdir + 'deseq_results.bed'
+    return deseqdir + deseqdir+'deseq_hits_p_'+str(p)+'.bed'
 
             
 
