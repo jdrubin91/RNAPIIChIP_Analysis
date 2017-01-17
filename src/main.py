@@ -44,6 +44,9 @@ deseqdir = parent_dir(srcdir) + '/deseq_files/'
 #Gene annotations file
 geneannotations = parent_dir(srcdir) + '/RefSeqHG19.bed'
 
+#Motif Files:
+motiffiles = '/scratch/Shares/dowell/md_score_paper/PSSM_hits_genome_wide/pval-7/'
+
 #User-defined Input:
 #=========================================================================================================
 #Training file directory
@@ -91,7 +94,7 @@ def run():
     "done\nGetting Interval File..."
     counts = get_intervals.run(onregions,expbeds,contbeds,deseqdir,conditions,geneannotations,genefilter,norm=len(contbeds)>0)
     results = deseq.run(counts,conditions,deseqdir)
-    motif_enrichment.run()
+    motif_enrichment.run(results,motiffiles)
 
 
 
